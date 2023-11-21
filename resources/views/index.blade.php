@@ -13,33 +13,31 @@
     <div class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100vh;">
         <div class="container" style="width: 100%;">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertProductModal">Add Product</button>
-            <table class="table">
+            <table class="table" id="productTable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">description</th>
+                    <th scope="col">action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                    @foreach ( $products as $product )
+                     <tr>
+                        <th scope="row">{{$loop->index+1}}</th>
+                        <td>{{ $product->product_name }}</td>
+                        <td>{{ $product->product_price }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-success">Edit</a>
+                            <a class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                      </tr>
+                    @endforeach
+                  
+                  
                 </tbody>
               </table>
         </div>
@@ -79,6 +77,7 @@
                                 $("#addProductForm")[0].reset();
                                 $('#insertProductModal').modal('hide');
                                 alert("Product added successfully");
+                                $('#productTable').load(location.href+' #productTable');
                             }
                         },
                         error: function(xhr, status, error) {

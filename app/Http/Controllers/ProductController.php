@@ -10,7 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $products = Product::where('status', '0')->get();
+        return view('index', compact('products'));
     }
     public function create(Request $request)
     {
@@ -20,8 +21,8 @@ class ProductController extends Controller
         ]);
 
         $product =  Product::insert([
-            'product-name' => $request->productName,
-            'product-price' => $request->productPrice,
+            'product_name' => $request->productName,
+            'product_price' => $request->productPrice,
             'description' => $request->description,
             'status' => '0',
             'created_at' => Carbon::now(),

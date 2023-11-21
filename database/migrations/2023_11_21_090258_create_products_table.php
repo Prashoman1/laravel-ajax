@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product-name');
-            $table->string('product-price');
+            $table->string('product_name');
+            $table->string('product_price');
             $table->text('description');
             $table->enum('status', ['1', '0'])
             ->comment('1=active, 0=inactive');
